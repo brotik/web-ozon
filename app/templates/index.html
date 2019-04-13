@@ -1,7 +1,8 @@
 <!
 <html>
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -23,9 +24,13 @@
 
             <ul class="list-group mt-2">
                 {% for book in books %}
+                {% if not tags %}
                 <li class="list-group-item">
-                    <a href="{{url_for('book_details', book_id=book.id)}}">{{book['title']}}, (Author: {{book['author']}})</a>
+                    <a href="{{url_for('book_details', book_id=book.id)}}">{{book['title']}}</a>,
+                    <a href="{{url_for('book_details', book_id=book.id)}}">{{book['author']}}</a>,
+                    <a href="{{url_for('book_details', book_id=book.id)}}">{{book['tags']}}</a>
                     </li>
+                {% endif %}
                 {% endfor %}
             </ul>
 

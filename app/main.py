@@ -3,15 +3,15 @@ import os
 import waitress
 from flask import render_template, Flask, request, url_for, redirect
 
-from app.ozon import create_book, add_book, search_book_by_title, search_book_by_id, remove_book_by_id, create_empty_book
+from app.ozon import create_book, add_book, search_books, search_book_by_id, remove_book_by_id, create_empty_book
 
 
 def start():
     app = Flask(__name__)
 
     container = []
-    wp = create_book('War and Peace', 'Tolstoy')
-    anna = create_book('Anna Karenina', 'Tolstoy')
+    wp = create_book('Война и мир', 'Толстой', '#война, #любовь, #толстой')
+    anna = create_book('Анна Каренина', 'Толстой', '#поезд, #любовь, #толстой')
 
     container = add_book(container, wp)
     container = add_book(container, anna)
@@ -20,7 +20,7 @@ def start():
     def index():
         search = request.args.get('search')
         if search:
-            results = search_book_by_title(container, search)
+            results = search_books(container, search)
             return render_template('index.html', books=results, search=search)
 
         return render_template('index.html', books=container)

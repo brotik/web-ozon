@@ -1,12 +1,22 @@
 import uuid
 
 
-def create_book(title, author):
+def create_book(title, author, tags):
+    tags = convert_tags_from_str_to_set(tags)
+
     return {
-        'id': str(uuid.uuid4()),
         'title': title,
         'author': author,
+        'tags': tags
     }
+
+
+def convert_tags_from_str_to_set(tags):
+    if not tags:
+        return set()
+
+    tags = set(map(str.strip, tags.split(',')))
+    return tags
 
 
 def add_book(container, book):
@@ -15,11 +25,22 @@ def add_book(container, book):
     return copy
 
 
-def search_book_by_title(container, title):
+def search_books(container, search):  # search - строка поиска
+    search_lowercased = search.strip().lower()
     result = []
     for book in container:
-        if book['title'] == title:
+        if search_lowercased in book['title'].lower():
             result.append(book)
+            continue
+
+        if search_lowercased in book['author'].lower():
+            result.append(book)
+            continue
+
+        if search_lowercased in book['tags']:
+            result.append(book)
+            continue
+
     return result
 
 
