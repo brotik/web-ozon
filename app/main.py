@@ -44,8 +44,9 @@ def start():
         nonlocal container
         title = request.form['title']
         author = request.form['author']
+        tags = request.form['tags']
         if book_id == 'new':
-            book = create_book(title=title, author=author)
+            book = create_book(title=title, author=author, tags=tags)
             container = add_book(container, book)
         else:
             book = search_book_by_id(container, book_id)

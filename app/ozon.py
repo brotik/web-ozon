@@ -5,6 +5,7 @@ def create_book(title, author, tags):
     tags = convert_tags_from_str_to_set(tags)
 
     return {
+        'id': str(uuid.uuid4()),
         'title': title,
         'author': author,
         'tags': tags
